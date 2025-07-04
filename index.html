@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suhani Yadav | Portfolio</title>
+  <style>
+
+    /* Reset default margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Apply a clean, readable font */
+    body {
+      background: #fefefe;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    header:hover {
+      background-color: #f5f5f5;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+    nav {
+      display: flex;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      color: #ffc107;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      text-align: center;
+      padding: 0 5%;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      max-width: 600px;
+      color: #555;
+    }
+    .btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: #ffc107;
+      color: black;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #e0a800;
+      transform: translateY(-2px);
+    }
+
+    /* ============================
+   SOCIAL MEDIA ICONS
+============================= */
+    .social {
+      position: fixed;
+      top: 40%;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .social a {
+      text-decoration: none;
+      background-color: white;
+      padding: 10px;
+      display: inline-block;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    /* Slight scale effect on hover */
+    .social a:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .social a:nth-child(1):hover {
+      background-color: #0077b5;
+    }
+    .social a:nth-child(2):hover {
+      background-color: #1da1f2;
+    }
+    .social a:nth-child(3):hover {
+      background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    }
+    .social a:nth-child(4):hover {
+      background-color: #333;
+    }
+    .social a:hover img {
+      filter: brightness(0) invert(1);
+    }
+    section {
+      padding: 60px 5%;
+    }
+    #about, #projects, #contact {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .about-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .about-buttons button {
+      padding: 10px 15px;
+      border: none;
+      background: #eee;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    .about-buttons button:hover {
+      background: #ddd;
+    }
+    .about-buttons button.active {
+      background: #ffc107;
+      color: black;
+    }
+    .about-content > div {
+      display: none;
+      text-align: center;
+      padding: 15px;
+    }
+    .about-content > div.active {
+      display: block;
+    }
+    .about-section {
+      display: none;
+      text-align: center;
+      padding: 15px;
+    }
+    .about-section.active {
+      display: block;
+    }
+    .about-section#interests.active {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      text-align: left;
+      margin-top: 20px;
+    }
+    .interest-column {
+      flex: 1;
+      min-width: 200px;
+    }
+   .interest-column ul {
+     list-style-type: disc;
+     padding-left: 20px;
+    }
+   .interest-column li {
+     margin-bottom: 10px;
+     font-size: 16px;
+     color: #333;
+    }
+
+    /* ============================
+   RESPONSIVE DESIGN
+============================= */
+    @media(max-width: 600px){
+      .about-section#interests.active {
+        flex-direction: column;
+      }
+    }
+    .project-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    #resume {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    form input, form textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 16px;
+    }
+    form input:focus, form textarea:focus {
+      border-color: #ffc107;
+      box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+      outline: none;
+    }
+    form button {
+      padding: 12px 25px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 100%;
+      font-size: 16px;
+    }
+    form button:hover {
+      background-color: #ffc107;
+      color: black;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .success-message {
+      color: #28a745;
+      background-color: #d4edda;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 15px;
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 15px;
+      }
+      .logo {
+        margin-bottom: 15px;
+      }
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      nav a {
+        margin: 5px 10px;
+        font-size: 14px;
+      }
+      .hero {
+        height: auto;
+        padding: 80px 5%;
+      }
+      .social {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        margin: 30px 0;
+        gap: 10px;
+      }
+      .about-buttons {
+        flex-direction: row;
+      }
+      .about-buttons button {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+      section {
+        padding: 40px 15px;
+      }
+      .about-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      .project-card {
+        padding: 15px;
+      }
+      form input, form textarea {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Contains the name and navigation menu -->
+  <header>
+    <div class="logo">
+      <img src="images/suhani.jpg" alt="logo" style="border-radius:50%;" />
+      <span>Suhani Yadav</span>
+    </div>
+    <nav>
+      <a href="#">HOME</a>
+      <a href="#about">ABOUT</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#resume">RESUME</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
+
+   <!-- Brief introduction and bio -->
+  <section class="hero">
+    <h1>HEY, I'M SUHANI YADAV</h1>
+    <p>A Frontend focused Web Developer building the Frontend of Websites and Web Applications that lead to the success of the overall product.</p>
+    <a href="#projects"><button class="btn">PROJECTS</button></a>
+  </section>
+
+  <!-- About section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-buttons">
+      <button onclick="showAboutSection('education', event)" class="active">Education</button>
+      <button onclick="showAboutSection('interests', event)">Interests</button>
+      <button onclick="showAboutSection('personal', event)">Personal Info</button>
+      <button onclick="showAboutSection('career', event)">Career Path</button>
+    </div>
+
+    <div class="about-content">
+      <div id="education" class="about-section active">
+        <p>I am currently pursuing a B.Tech in Computer Science Engineering from ITER, Siksha 'O' Anusandhan University, Bhubaneswar, with an expected graduation
+           in 2027. My academic focus includes web development, Java programming, and data structures, which have helped me build a strong foundation in software
+            development.
+        </p>
+        <br>
+        <p>Prior to that, I completed my schooling at Aum Valley Educational Institution, Titlagarh, Odisha, where I discovered my passion for technology and 
+          problem-solving.
+        </p>
+      </div>
+
+      <div id="interests" class="about-section">
+        <div class="interest-column">
+          <h3>Professional Interests:</h3>
+            <ul>
+              <li>Web Development</li>
+              <li>Java programming</li>
+              <li>Artificial Intelligence</li>
+              <li>UI/UX design</li>
+            </ul>
+        </div>
+        <div class="interest-column">
+          <h3>Personal Interests:</h3>
+            <ul>
+              <li>Photography</li>
+              <li>Listening to music</li>
+              <li>Watching anime</li>
+              <li>Reading fiction</li>
+            </ul>
+        </div>
+      </div>
+
+      <div id="personal" class="about-section">
+        <p>Outside of tech, I’m passionate about dancing, drawing, and listening to music. I enjoy expressing creativity both through code and the arts, and I’m 
+          always eager to learn and grow.</p>
+      </div>
+
+      <div id="career" class="about-section">
+        <p>
+          I aim to build a career in software development, with a strong focus on web technologies, problem-solving, and creating user-centric applications. Currently,
+           I am enhancing my skills in Java, front-end development, and data structures, while actively working on personal and academic projects.
+        </p>
+        <br>
+        <p>I aspire to join a dynamic and innovative tech company where I can contribute meaningfully, collaborate with like-minded professionals, and continue learning 
+          in a fast-paced environment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume -->
+  <section id="resume">
+    <h2>Resume</h2>
+    <p>You can download my resume by clicking the button below.</p>
+    <a href="resume.pdf" target="_blank">
+      <button class="btn">Download Resume</button>
+    </a>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project-card">
+      <h3>Project One</h3>
+      <p>Description of project one goes here. Talk about what technologies you used and what it does.</p>
+    </div>
+    <div class="project-card">
+      <h3>Project Two</h3>
+      <p>Description of project two goes here. Highlight any challenges you overcame or unique features.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+      <div id="successMessage" class="success-message">
+        Thank you! Your message has been sent successfully.
+      </div>
+    </form>
+  </section>
+
+  <!-- Quick links for social media handles -->
+  <div class="social">
+    <!-- LinkedIn Profile -->
+    <a href="https://www.linkedin.com/in/suhani-yadav-656a01275?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/145/145807.png" width="24" />
+    </a>
+
+    <!-- Twitter (X) Profile -->
+    <a href="https://x.com/Suhani297473500?t=r0t5lrCYnhRP6QtOvvY3Bw&s=09" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="24" alt="Twitter" />
+    </a>
+
+    <!-- Instagram Profile -->
+    <a href="https://www.instagram.com/suhani_1109?igsh=NnQxbDhnNmJ2MTU2" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" alt="Instagram" />
+    </a>
+
+    <!-- GitHub Profile -->
+    <a href="https://github.com/suhani1109" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" width="24" />
+    </a>
+</div>
+
+  <script>
+    function showAboutSection(sectionId, event) {
+      const sections = document.querySelectorAll('.about-section');
+      const buttons = document.querySelectorAll('.about-buttons button');
+
+      sections.forEach(sec => sec.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      const targetSection = document.getElementById(sectionId);
+      targetSection.classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+      
+      this.reset();
+      
+      setTimeout(function() {
+        successMessage.style.display = 'none';
+      }, 5000);
+    });
+
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header');
+      const logo = document.querySelector('.logo');
+      
+      logo.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          const nav = document.querySelector('nav');
+          nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+        }
+      });
+      
+      // Initialize nav display for mobile
+      if (window.innerWidth <= 768) {
+        document.querySelector('nav').style.display = 'none';
+      }
+      
+      // Update on window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          document.querySelector('nav').style.display = 'flex';
+        } else {
+          document.querySelector('nav').style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
